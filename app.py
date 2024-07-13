@@ -1,4 +1,4 @@
-from openai import OpenAI
+import openai
 import streamlit as st
 from dotenv import load_dotenv
 import os
@@ -8,29 +8,23 @@ load_dotenv("example.env")
 
 st.title("Streamlit Chatbot Interface")
 
-# Print the API key to verify it's being loaded correctly (remove this after verification)
-print(os.getenv("OPENAI_API_KEY"))
-
 USER_AVATAR = "👤"
 BOT_AVATAR = "🤖"
-client = OpenAI(api_key=os.getenv("OPENAI_API_KEY"))
+openai.api_key = os.getenv("OPENAI_API_KEY")
 
 # Ensure openai_model is initialized in session state
 if "openai_model" not in st.session_state:
     st.session_state["openai_model"] = "gpt-3.5-turbo"
-
 
 # Load chat history from shelve file
 def load_chat_history():
     with shelve.open("chat_history") as db:
         return db.get("messages", [])
 
-
 # Save chat history to shelve file
 def save_chat_history(messages):
     with shelve.open("chat_history") as db:
         db["messages"] = messages
-
 
 # Initialize or load chat history
 if "messages" not in st.session_state:
@@ -57,7 +51,7 @@ if prompt := st.chat_input("How can I help?"):
     with st.chat_message("assistant", avatar=BOT_AVATAR):
         message_placeholder = st.empty()
         full_response = ""
-        for response in client.chat.completions.create(
+        for response in openai.ChatCompletion.create(
             model=st.session_state["openai_model"],
             messages=st.session_state["messages"],
             stream=True,
