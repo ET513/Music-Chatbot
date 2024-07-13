@@ -8,6 +8,9 @@ load_dotenv("example.env")
 
 st.title("Streamlit Chatbot Interface")
 
+# Print the API key to verify it's being loaded correctly (remove this after verification)
+print(os.getenv("OPENAI_API_KEY"))
+
 USER_AVATAR = "👤"
 BOT_AVATAR = "🤖"
 client = OpenAI(api_key=os.getenv("OPENAI_API_KEY"))
