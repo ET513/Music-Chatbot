@@ -4,7 +4,7 @@ from dotenv import load_dotenv
 import os
 import shelve
 
-load_dotenv("/example.env")
+load_dotenv("example.env")
 
 st.title("Streamlit Chatbot Interface")
 
