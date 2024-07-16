@@ -4,9 +4,9 @@ from dotenv import load_dotenv
 import os
 import shelve
 
-load_dotenv("example.env")
+load_dotenv("key.env")
 
-st.title("Streamlit Chatbot Interface")
+st.title("Music Chatbot")
 
 USER_AVATAR = "👤"
 BOT_AVATAR = "🤖"
